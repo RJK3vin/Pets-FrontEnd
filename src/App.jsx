@@ -1,10 +1,18 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 function ShowPets({pets}) {
   return (
     <div>
         {pets.map((pet) => {
-          return <p key={pet.id}>{pet.name} - Type: {pet.pettype} Description: {pet.description}</p>
+          return (
+          <>
+          <p key={pet.id}>{pet.name} - Type: {pet.pettype}</p> 
+          <Link to='/description' state={{ pet: pet }}>
+            <button >Click to show description</button>
+          </Link> 
+          </>
+          )
         })}
     </div>
   )
@@ -46,6 +54,7 @@ export default function App() {
     setDescription('')
     setPetType('Select an option')
   }
+
 
   return (
     <>
