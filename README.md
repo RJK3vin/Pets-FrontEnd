@@ -1,6 +1,6 @@
 # Pet Store
 
-This project was so I can learn how to create my own API using django rest framework. 
+This project uses my own API to create a pet store. 
 
 [Watch demo](https://drive.google.com/file/d/1InlAU0_8LH9dxGkYJZ6QI8owbHBshFry/view?usp=sharing)
 
