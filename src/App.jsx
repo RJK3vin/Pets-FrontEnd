@@ -87,7 +87,7 @@ export default function App() {
     <button onClick={AddPet}>Add</button>
     <Cartstate />
     {yourcart.map((yourcart, index) => (
-      <p key={`${yourcart.id}-${index}`}>{yourcart.name}{yourcart.pettype}{yourcart.description}</p>
+      <p key={`${yourcart.id}-${index}`}>{yourcart.name} - {yourcart.pettype} - {yourcart.description}</p>
     ))}
     </>
   )
