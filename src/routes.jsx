@@ -1,5 +1,6 @@
 import App from "./App";
 import Description from "./Description"
+import Cart from "./cart";
 
 const routes = [
     {
@@ -9,6 +10,10 @@ const routes = [
     {
         path: "/description",
         element: <Description />,
+    },
+    {
+        path: "/cart",
+        element: <Cart />
     }
 ]
 
