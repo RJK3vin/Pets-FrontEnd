@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Cartstate from './Cartstate';
+import Cartbutton from './cartbutton';
 
-function ShowPets({ pets, handleClick }) {
+function ShowPets({ pets=[], setYourCart, yourcart }) {
 
   return (
     <div>
         {pets.map((pet) => {
           return (
           <>
-          <Link to='/description' state={{ pet }}>
+          <Link to='/description' state={{ pet, yourcart }}>
             <p key={pet.id} style = {{ color: "blue" }}>{pet.name} - {pet.pettype} </p>
           </Link> 
-          <button onClick={(event) => handleClick(event, pet)}>Add to cart</button>
+          <Cartbutton pet={pet} setYourCart={setYourCart}/>
           </>
           )
         })}
@@ -27,20 +27,26 @@ export default function App() {
   const [pettype, setPetType] = useState('Select a type')
   const [pets, setPets] = useState([])
   const options = ['dog', 'cat', 'bird', 'fish', 'reptile', 'hamster']
-  const [cart, setCart] = useState(0)
-  const[yourcart, setYourCart] = useState([])
+  const [yourcart, setYourCart] = useState([])
+  const [token, setToken] = useState()
+  const [textvalue, setTextValue] = useState()
+  // 'bcd5ecc7e43c0f85cd0c81f7b99f3fd0bd587a1b'
 
   useEffect(() => {
-    fetch(`http://localhost:8080/pets/`)
+    fetch(`http://localhost:8080/pets/`, {headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json",
+    },})
       .then(res => res.json())
       .then(json => setPets(json.results))
-  }, [])
+  }, [token])
 
   function AddPet() {
     fetch(`http://localhost:8080/pets/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Token bcd5ecc7e43c0f85cd0c81f7b99f3fd0bd587a1b`,
       },
       body: JSON.stringify({ name: name, description: description, pettype: pettype}),
     }) 
@@ -59,9 +65,8 @@ export default function App() {
     setPetType('Select a type')
   }
 
-  function handleClick(event, pet) {
-    setYourCart(prevYourCart => [...prevYourCart, pet])
-    console.log(yourcart)
+  function Login() {
+    setToken(textvalue)
   }
 
   return (
@@ -69,10 +74,13 @@ export default function App() {
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h1 style={{ margin: 0 }}>Shop For Pets:</h1>         
     </div>
-    <Link to="/cart" >
+    <input placeholder='token' value={textvalue} onChange={(event) => setTextValue(event.target.value)}></input>
+    <button onClick={Login}>Log In</button>
+    <p style = {{float: 'right'}}>Cart: {yourcart.length}</p>
+    <Link to="/cart" state = {{ yourcart }} >
       <button style={{ float: 'right' }}>Go To Cart</button>
     </Link>
-    <ShowPets pets={pets} handleClick={handleClick}/>
+    <ShowPets pets={pets} setYourCart={setYourCart} yourcart={yourcart}/>
     <h2>Add Pets</h2>
     <input placeholder="Enter Pet Name" value={name} onChange = {(event) => setName(event.target.value)}></input>
     <select value={options} onChange = {(event) => setPetType(event.target.value)}>
@@ -85,10 +93,6 @@ export default function App() {
     </select>
     <input placeholder="Enter Pet Description" value={description} onChange = {(event) => setDescription(event.target.value)}></input>
     <button onClick={AddPet}>Add</button>
-    <Cartstate />
-    {yourcart.map((yourcart, index) => (
-      <p key={`${yourcart.id}-${index}`}>{yourcart.name} - {yourcart.pettype} - {yourcart.description}</p>
-    ))}
     </>
   )
 }
