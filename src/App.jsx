@@ -43,25 +43,22 @@ export default function App() {
     },})
       .then(res => res.json())
       .then(json => setPets(json.results))
-  }, [token])
+  //   fetch(`http://localhost:8080/users/me/`, {
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Token ${token}`
+  //     }
+  // })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         return res.json()
+  //           .then(user => {
+  //             setId(user.cart.id)
+  //           })
+  //       }
+  //     })
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/users/me/`, {
-      headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${token}`
-      }
-  })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-            .then(user => {
-              setId(user.cart.id)
-            })
-        }
-      })
-
-    fetch(`http://localhost:8080/carts/${id}`, {headers: {
+    fetch(`http://localhost:8080/carts/`, {headers: {
       Authorization: `Token ${token}`,
       "Content-Type": "application/json",
     },})
