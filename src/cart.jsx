@@ -3,10 +3,11 @@ import { useLocation, Link } from 'react-router-dom';
 export default function Cart() {
     const location = useLocation();
     const yourcart = location.state?.yourcart;
+    console.log(yourcart)
     return (
     <>
-        {yourcart.map((yourcart, index) => (
-        <p key={`${yourcart.id}-${index}`}>{yourcart.name} - {yourcart.pettype} - {yourcart.description}</p>
+        {yourcart.map((item, index) => (
+        <p key={`${item.id}-${index}`}>{item.name} - {item.pettype} - {item.description}</p>
         ))}       
         <p>Cart: {yourcart.length}</p> 
         <Link to="/">
