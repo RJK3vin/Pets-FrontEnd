@@ -23,8 +23,8 @@ const Cartbutton = (props) => {
                             .then((res) => {
                                 if (res.ok) {
                                     return res.json()
-                                        .then((addcart) => {
-                                        props.setYourCart(addcart.pets)
+                                        .then(() => {
+                                        props.setEffect(!props.effect)
                                         })
                                 }
                             })

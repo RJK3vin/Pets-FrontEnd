@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cartbutton from './cartbutton';
 
-function ShowPets({ pets=[], setYourCart, token, id }) {
+function ShowPets({ pets=[], setYourCart, token, id, effect, setEffect }) {
 
   return (
     <div>
@@ -12,7 +12,7 @@ function ShowPets({ pets=[], setYourCart, token, id }) {
           <Link to='/description' state={{ pet }}>
             <p key={pet.id} style = {{ color: "blue" }}>{pet.name} - {pet.pettype} </p>
           </Link> 
-          <Cartbutton pet={pet} setYourCart={setYourCart} token={token} id={id}/>
+          <Cartbutton pet={pet} setYourCart={setYourCart} token={token} id={id} effect={effect} setEffect={setEffect}/>
           </>
           )
         })}
@@ -50,7 +50,7 @@ export default function App() {
     },})
       .then(res => res.json())
       .then(json => setYourCart(json.results[0].pets))
-  }, [token])
+  }, [token, effect])
 
   function AddPet() {
     fetch(`http://localhost:8080/pets/`, {
@@ -87,11 +87,11 @@ export default function App() {
     </div>
     <input placeholder='token' value={textvalue} onChange={(event) => setTextValue(event.target.value)}></input>
     <button onClick={Login}>Log In</button>
-    {/* <p style = {{float: 'right'}}>Cart: {yourcart.length}</p> */}
+    <p style = {{float: 'right'}}>Cart: {yourcart.length}</p>
     <Link to="/cart" state = {{ yourcart }} >
       <button style={{ float: 'right' }}>Go To Cart</button>
     </Link>
-    <ShowPets pets={pets} setYourCart={setYourCart} yourcart={yourcart} token={token} id={id}/>
+    <ShowPets pets={pets} setYourCart={setYourCart} yourcart={yourcart} token={token} id={id} effect={effect} setEffect={setEffect}/>
     <h2>Add Pets</h2>
     <input placeholder="Enter Pet Name" value={name} onChange = {(event) => setName(event.target.value)}></input>
     <select value={options} onChange = {(event) => setPetType(event.target.value)}>

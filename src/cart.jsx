@@ -2,8 +2,7 @@ import { useLocation, Link } from 'react-router-dom';
 
 export default function Cart() {
     const location = useLocation();
-    const yourcart = location.state?.yourcart;
-    console.log(yourcart)
+    const yourcart = location.state?.yourcart || [];
     return (
     <>
         {yourcart.map((item, index) => (
