@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cartbutton from './cartbutton';
 
-function ShowPets({ pets=[], setYourCart, token, id, effect, setEffect }) {
+function ShowPets({ pets=[], setYourCart, yourcart, token, id, effect, setEffect }) {
 
   return (
     <div>
         {pets.map((pet) => {
           return (
           <>
-          <Link to='/description' state={{ pet }}>
+          <Link to='/description' state={{ pet, yourcart }}>
             <p key={pet.id} style = {{ color: "blue" }}>{pet.name} - {pet.pettype} </p>
           </Link> 
           <Cartbutton pet={pet} setYourCart={setYourCart} token={token} id={id} effect={effect} setEffect={setEffect}/>
