@@ -43,20 +43,6 @@ export default function App() {
     },})
       .then(res => res.json())
       .then(json => setPets(json.results))
-  //   fetch(`http://localhost:8080/users/me/`, {
-  //     headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Token ${token}`
-  //     }
-  // })
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         return res.json()
-  //           .then(user => {
-  //             setId(user.cart.id)
-  //           })
-  //       }
-  //     })
 
     fetch(`http://localhost:8080/carts/`, {headers: {
       Authorization: `Token ${token}`,
@@ -101,7 +87,7 @@ export default function App() {
     </div>
     <input placeholder='token' value={textvalue} onChange={(event) => setTextValue(event.target.value)}></input>
     <button onClick={Login}>Log In</button>
-    <p style = {{float: 'right'}}>Cart: {yourcart.length}</p>
+    {/* <p style = {{float: 'right'}}>Cart: {yourcart.length}</p> */}
     <Link to="/cart" state = {{ yourcart }} >
       <button style={{ float: 'right' }}>Go To Cart</button>
     </Link>
