@@ -33,8 +33,8 @@ export default function App() {
   const [effect, setEffect] = useState(false)
   const [id, setId] = useState(``)
 
-  // bcd5ecc7e43c0f85cd0c81f7b99f3fd0bd587a1b
-  // ccc0dd55eb28b457d46fefd4fa700690ee3c4794
+  // token for user: sam, bcd5ecc7e43c0f85cd0c81f7b99f3fd0bd587a1b 
+  // token for user: rj, ccc0dd55eb28b457d46fefd4fa700690ee3c4794
   
   useEffect(() => {
     fetch(`http://localhost:8080/pets/`, {headers: {
